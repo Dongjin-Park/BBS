@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper 
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.benple.bbs.board.mapper.BoardMapper">
 
@@ -10,5 +10,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			COUNT(*)
 		FROM board
 	</select>
-
+	
+	<select id="boardList" resultType="com.benple.bbs.board.domain.BoardVO">
+		SELECT
+			*
+		FROM board
+	</select>
+	
+	<select id="boardDetail" parameterType="int" resultType="com.benple.bbs.board.domain.BoardVO">
+		SELECT
+			*
+		FROM board
+		WHERE
+			board_seq=#(board_seq)
+	</select>
+	
+	<update id="boardUpdate" parameterType="com.benple.bbs.board.domain.BoardVO">
+		UPDATE board
+			SET	
+			content=#(content)
+		WHERE
+			board_seq=#(board_seq)
+	</update>
+	
+	<delete id="boardDelete" parameterType="com.benple.bbs.board.domain.BoardVO">
+		DELETE 
+		FROM 
+			board
+		WHERE
+			board_seq=#(board_seq)
+	</delete>
 </mapper>
