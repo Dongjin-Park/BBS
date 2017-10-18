@@ -22,36 +22,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			*
 		FROM board
 		WHERE
-			board_seq=#{board_seq}
+			board_seq=#(board_seq)
 	</select>
 	
-	
-	<insert id="boardInsert" parameterType="com.benple.bbs.board.domain.BoardVO">
-        INSERT INTO
-        board (BOARD_SEQ,SUBJECT,CONTENT,WRITER,CREATED)
-        VALUES(#{board_seq},#{subject},#{content},#{writer},now()) 
-    </insert>
-	
-	
 	<update id="boardUpdate" parameterType="com.benple.bbs.board.domain.BoardVO">
-        UPDATE board
-            SET
-        <if test="subject != null">
-            SUBJECT = #{subject}
-        </if>
-        <if test="subject != null and content != null"> , </if>
-        <if test="content != null">
-            CONTENT = #{content}
-        </if>
-        WHERE board_seq = #{board_seq}
+		UPDATE board
+			SET	
+			content=#(content)
+		WHERE
+			board_seq=#(board_seq)
 	</update>
-	
 	
 	<delete id="boardDelete" parameterType="com.benple.bbs.board.domain.BoardVO">
 		DELETE 
 		FROM 
 			board
 		WHERE
-			board_seq=#{board_seq}
+			board_seq=#(board_seq)
 	</delete>
 </mapper>

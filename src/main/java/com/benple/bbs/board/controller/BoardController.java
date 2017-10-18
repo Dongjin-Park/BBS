@@ -40,17 +40,11 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/insertProc")
-	private String boardInsertProc(HttpServletRequest request) throws Exception{
+	private int boardInsertProc(HttpServletRequest request) throws Exception{
 		
-		BoardVO board = new BoardVO();
+		BoardVO board = (BoardVO) request.getParameterMap();
 		
-		board.setSubject(request.getParameter("subject"));
-		board.setContent(request.getParameter("content"));
-		board.setWriter(request.getParameter("writer"));
-		
-		mBoardService.boardInsertService(board);
-		
-		return "redirect:/list";
+		return mBoardService.boardInsertService(board);
 	}
 	
 	
@@ -63,18 +57,11 @@ public class BoardController {
 	}
 
 	@RequestMapping("/updateProc")
-	private String boardUpdateProc(HttpServletRequest request) throws Exception{
+	private int boardUpdateProc(HttpServletRequest request) throws Exception{
 		
-		BoardVO board = new BoardVO();
-		board.setSubject(request.getParameter("subject"));
-		board.setContent(request.getParameter("content"));
-		board.setBoard_seq(Integer.parseInt(request.getParameter("board_seq")));
+		BoardVO board = (BoardVO) request.getParameterMap();
 		
-		mBoardService.boardUpdateService(board);
-		
-		
-		
-		return "redirect:/detail/"+request.getParameter("board_seq");
+		return mBoardService.boardUpdateService(board);
 	}
 	
 	
