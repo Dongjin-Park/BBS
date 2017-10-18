@@ -22,10 +22,10 @@ public interface BoardMapper {
 	public int boardInsert(BoardVO board);
 	
 	//게시글 수정 
-	public void boardUpdate(BoardVO board) throws Exception;
+	public int boardUpdate(BoardVO board) throws Exception;
 	
 	//게시글 삭제
-	public void boardDelete(int board_seq) throws Exception;
+	public int boardDelete(int board_seq) throws Exception;
 
 
 }
