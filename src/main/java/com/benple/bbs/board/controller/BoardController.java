@@ -1,12 +1,19 @@
 package com.benple.bbs.board.controller;
 
+import java.io.File;
+import java.nio.file.Files;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.benple.bbs.board.domain.BoardVO;
 import com.benple.bbs.board.service.BoardService;
@@ -40,13 +47,27 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/insertProc")
-	private String boardInsertProc(HttpServletRequest request) throws Exception{
+	private String boardInsertProc(HttpServletRequest request, @RequestPart MultipartFile files) throws Exception{
 		
 		BoardVO board = new BoardVO();
 		
 		board.setSubject(request.getParameter("subject"));
 		board.setContent(request.getParameter("content"));
 		board.setWriter(request.getParameter("writer"));
+		
+		String sourceFilename = files.getOriginalFilename();
+		String sourceFilenameExtension = FilenameUtils.getExtension(sourceFilename).toLowerCase();
+		File destinationFile;
+		String desinationFilename;
+		String fileUrl = "/Users/dj/Documents/workspace/BBS/src/main/webapp/WEB-INF/uploadFiles";
+		
+		do{
+			desinationFilename = RandomStringUtils.randomAlphanumeric(32) +"."+sourceFilenameExtension;
+			destinationFile = new File(fileUrl + desinationFilename);
+		} while (destinationFile.exists());
+		
+		destinationFile.getParentFile().mkdirs();
+		files.transferTo(destinationFile);
 		
 		mBoardService.boardInsertService(board);
 		
