@@ -7,10 +7,10 @@ import org.springframework.stereotype.Repository;
 import com.benple.bbs.board.domain.BoardVO;
 import com.benple.bbs.board.domain.FileVO;
 
+
 @Repository("com.benple.bbs.board.mapper.BoardMapper")
 public interface BoardMapper {
 
-	//게시글 개수
 	public int boardCount() throws Exception;
 
 	//게시글 목록
