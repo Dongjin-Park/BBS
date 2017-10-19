@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.benple.bbs.board.domain.BoardVO;
+import com.benple.bbs.board.domain.FileVO;
 import com.benple.bbs.board.service.BoardService;
 
 @Controller
@@ -50,19 +51,23 @@ public class BoardController {
 	private String boardInsertProc(HttpServletRequest request, @RequestPart MultipartFile files) throws Exception{
 		
 		BoardVO board = new BoardVO();
+		FileVO file = new FileVO();
 		
 		board.setSubject(request.getParameter("subject"));
 		board.setContent(request.getParameter("content"));
 		board.setWriter(request.getParameter("writer"));
 		
-		String sourceFilename = files.getOriginalFilename();
-		String sourceFilenameExtension = FilenameUtils.getExtension(sourceFilename).toLowerCase();
-		File destinationFile;
-		String desinationFilename;
-		String fileUrl = "/Users/dj/Documents/workspace/BBS/src/main/webapp/WEB-INF/uploadFiles";
-		
+		if(files.isEmpty()){
+			mBoardService.boardInsertService(board);
+		}else{
+			String fileName = files.getOriginalFilename();
+			String fileNameExtension = FilenameUtils.getExtension(fileName).toLowerCase();
+			File destinationFile;
+			String desinationFilename;
+			String fileUrl = "/Users/dj/Documents/workspace/BBS/src/main/webapp/WEB-INF/uploadFiles/";	
+			
 		do{
-			desinationFilename = RandomStringUtils.randomAlphanumeric(32) +"."+sourceFilenameExtension;
+			desinationFilename = RandomStringUtils.randomAlphanumeric(32) +"."+fileNameExtension;
 			destinationFile = new File(fileUrl + desinationFilename);
 		} while (destinationFile.exists());
 		
@@ -71,9 +76,16 @@ public class BoardController {
 		
 		mBoardService.boardInsertService(board);
 		
+		file.setBoard_seq(board.getBoard_seq());
+		file.setFileName(desinationFilename);
+		file.setFileOriName(fileName);;
+		file.setFileUrl(fileUrl);
+		
+		mBoardService.fileInsertService(file);
+	    }
+		
 		return "redirect:/list";
 	}
-	
 	
 	@RequestMapping("/update/{board_seq}")//게시글 수정폼 호출
 	private String boardUpdateForm(@PathVariable int board_seq, Model model) throws Exception{

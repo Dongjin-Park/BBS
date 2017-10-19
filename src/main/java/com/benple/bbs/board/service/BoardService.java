@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.benple.bbs.board.domain.BoardVO;
+import com.benple.bbs.board.domain.FileVO;
 import com.benple.bbs.board.mapper.BoardMapper;
 
 @Service("com.benple.bbs.board.service.BoardService")
@@ -39,4 +40,9 @@ public class BoardService {
 		
 		return mBoardMapper.boardDelete(board_seq);
 	}
+	
+	public int fileInsertService(FileVO file) throws Exception{
+	    return mBoardMapper.fileInsert(file);
+	}
+
 }

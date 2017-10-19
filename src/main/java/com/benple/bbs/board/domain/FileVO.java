@@ -2,13 +2,6 @@ package com.benple.bbs.board.domain;
 
 public class FileVO {
 
-	private int file_seq;
-	private int board_seq;
-	private String fileName;    //저장할 파일 
-	private String fileOrName;  //실제 파일 
-	private String fileUrl;
-	
-	
 	public int getFile_seq() {
 		return file_seq;
 	}
@@ -27,11 +20,11 @@ public class FileVO {
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
-	public String getFileOrName() {
-		return fileOrName;
+	public String getFileOriName() {
+		return fileOriName;
 	}
-	public void setFileOrName(String fileOrName) {
-		this.fileOrName = fileOrName;
+	public void setFileOriName(String fileOriName) {
+		this.fileOriName = fileOriName;
 	}
 	public String getFileUrl() {
 		return fileUrl;
@@ -39,5 +32,12 @@ public class FileVO {
 	public void setFileUrl(String fileUrl) {
 		this.fileUrl = fileUrl;
 	}
+	private int file_seq;
+	private int board_seq;
+	private String fileName;    //저장할 파일 
+	private String fileOriName;  //실제 파일 
+	private String fileUrl;
+	
+
 
 }

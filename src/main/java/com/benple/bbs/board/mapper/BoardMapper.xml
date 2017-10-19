@@ -26,11 +26,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	
-	<insert id="boardInsert" parameterType="com.benple.bbs.board.domain.BoardVO">
+	<insert id="boardInsert" parameterType="com.benple.bbs.board.domain.BoardVO" useGeneratedKeys="true" keyProperty="board_seq">
         INSERT INTO
         board (BOARD_SEQ,SUBJECT,CONTENT,WRITER,CREATED)
         VALUES(#{board_seq},#{subject},#{content},#{writer},now()) 
     </insert>
+	
+	<insert id="fileInsert" parameterType="com.benple.bbs.board.domain.FileVO">
+		INSERT INTO
+		files(FILE_SEQ, BOARD_SEQ, FILENAME,FILEORINAME, FILEURL)
+		VALUES(#{file_seq}, #{board_seq}, #{fileName}, #{fileOriName}, #{fileUrl})
+	</insert>
 	
 	
 	<update id="boardUpdate" parameterType="com.benple.bbs.board.domain.BoardVO">

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.benple.bbs.board.domain.BoardVO;
+import com.benple.bbs.board.domain.FileVO;
 
 @Repository("com.benple.bbs.board.mapper.BoardMapper")
 public interface BoardMapper {
@@ -27,6 +28,9 @@ public interface BoardMapper {
 	//게시글 삭제
 	public int boardDelete(int board_seq) throws Exception;
 
-
+	//파일 업로드
+	public int fileInsert(FileVO file) throws Exception;
+	
 }
+
 
