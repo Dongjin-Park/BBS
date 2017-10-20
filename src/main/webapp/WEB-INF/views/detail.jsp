@@ -27,6 +27,10 @@
 			<label>작성날짜</label>
 			<p>${detail.created}</p>
 		</div>
+		<div class="form-group"> <!-- 첨부파일 다운로드 -->
+			<label>첨부파일</label>
+			<p><a href="/fileDown/${files.board_seq}">${files.fileOriName}</a></p>		
+		</div>
 		<div class="form-group">
 			<label>내용</label>
 			<p>${detail.content}</p>
