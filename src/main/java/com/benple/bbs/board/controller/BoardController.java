@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,8 +25,13 @@ import com.benple.bbs.board.domain.BoardVO;
 import com.benple.bbs.board.domain.FileVO;
 import com.benple.bbs.board.service.BoardService;
 
+
+
 @Controller
 public class BoardController {
+
+	@Value("${file.upload.directory}")
+	String uploadFileDir;
 	
 	@Resource(name="com.benple.bbs.board.service.BoardService")
 	BoardService mBoardService;
@@ -53,8 +59,13 @@ public class BoardController {
 		return "insert";
 	}
 	
+	
+	
 	@RequestMapping("/insertProc")
 	private String boardInsertProc(HttpServletRequest request, @RequestPart MultipartFile files) throws Exception{
+	
+		
+		
 		
 		BoardVO board = new BoardVO();
 		FileVO file = new FileVO();
@@ -70,11 +81,11 @@ public class BoardController {
 			String fileNameExtension = FilenameUtils.getExtension(fileName).toLowerCase();
 			File destinationFile;
 			String desinationFilename;
-			String fileUrl = "/Users/dj/Documents/workspace/BBS/src/main/webapp/WEB-INF/uploadFiles/";	
+			//String fileUrl = "/Users/dj/Documents/workspace/BBS/src/main/webapp/WEB-INF/uploadFiles/";	
 			
 		do{
 			desinationFilename = RandomStringUtils.randomAlphanumeric(32) +"."+fileNameExtension;
-			destinationFile = new File(fileUrl + desinationFilename);
+			destinationFile = new File(uploadFileDir + desinationFilename);
 		} while (destinationFile.exists());
 		
 		destinationFile.getParentFile().mkdirs();
@@ -85,7 +96,7 @@ public class BoardController {
 		file.setBoard_seq(board.getBoard_seq());
 		file.setFileName(desinationFilename);
 		file.setFileOriName(fileName);;
-		file.setFileUrl(fileUrl);
+		file.setFileUrl(uploadFileDir);
 		
 		mBoardService.fileInsertService(file);
 	    }
