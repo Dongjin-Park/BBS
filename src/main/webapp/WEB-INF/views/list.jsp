@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="layoutTag" tagdir="/WEB-INF/tags"%>      <!-- 추가 -->
 <layoutTag:layout>                                         <!-- 여는 태그 -->
 
@@ -14,12 +14,12 @@
 </head>
 <body>
 
-<h2> 게시글 목록 </h2>
-
-<br>
-<br>
-
 <div class="contaner">
+	<div class="col-xs-12" style="magin:15px auto;">
+		<lable style="font-size:20px;"><span class="glyphicon glyphicon-list-alt"></span>게시글 목록</lable>
+		<button class="btn btn-primary btn-sm" style="float:right;" onclick="location.href='/insert'">글쓰기</button>
+	</div>
+	<div class="col-xs-12">
 	<table class="table table-hover">
 		<tr>
 			<th>No</th>
@@ -30,15 +30,14 @@
 
 		<c:forEach var="i" items="${list}">
 		<tr onclick="location.href='/detail/${i.board_seq}'">
-			<th>${i.board_seq}</th>
-			<th>${i.subject}</th>
-			<th>${i.writer}</th>
-			<th>${i.created}</th>
+			<td>${i.board_seq}</td>
+			<td>${i.subject}</td>
+			<td>${i.writer}</td>
+			<td><fmt:formatDate value="${i.created}" pattern="yyyy.MM.dd HH:mm:ss"/> </td>
 		</tr>
 		</c:forEach>
 	</table>
-<button class="btn btn-primary" onclick="location.href='/insert'">글쓰기</button>
-
+	</div>
 </div>
 
 </body>
