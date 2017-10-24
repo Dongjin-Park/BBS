@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.benple.bbs.board.mapper.CommentMapper">
+
+	<select id="commentCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM comment
+	</select>
+
+	<select id="commentList" parameterType="int" resultType="com.benple.bbs.board.domain.CommentVO">
+		SELECT
+			*
+		FROM comment 
+		WHERE board_seq = #{board_seq}
+	</select>
+
+	<insert id="commentInsert" parameterType="com.benple.bbs.board.domain.CommentVO">
+		INSERT INTO
+		comment (comment_seq, board_seq, content, writer, created)
+		VALUES(#{comment_seq}, #{board_seq}, #{content}, #{writer}, now())
+	</insert>
+	
+	<update id="commentUpdate" parameterType="com.benple.bbs.board.domain.CommentVO">
+		UPDATE comment
+			SET
+			content = #{content}
+		WHERE
+			comment_seq = #{comment_seq}
+	</update>
+	
+	<delete id="commentDelete" parameterType="com.benple.bbs.board.domain.CommentVO">
+		DELETE FROM comment WHERE comment_seq = #{comment_seq}
+	</delete>
+
+
+</mapper>

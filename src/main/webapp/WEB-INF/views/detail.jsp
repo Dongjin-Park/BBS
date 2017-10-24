@@ -49,7 +49,26 @@
 							onclick="location.href='/delete/${detail.board_seq}'">삭제</button>
 					</div>
 				</div>
+				<!--  댓글 부분 추가 -->
+			    <div class="container">
+			        <label for="content">comment</label>
+			        <form name="commentInsertForm">
+			            <div class="input-group">
+			               <input type="hidden" name="board_seq" value="${detail.board_seq}"/>
+			               <input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요.">
+			               <span class="input-group-btn">
+			                    <button class="btn btn-default" type="button" name="commentInsertBtn">등록</button>
+			               </span>
+			              </div>
+			        </form>
+			    </div>
+				
+				<div class="container">
+					<div class="commentList"></div>
+				</div>
 			</div>
+		<!-- commentS.jsp 추가 -->
+		<%@ include file="commentS.jsp" %>
 		
 		</body>
 	</html>
